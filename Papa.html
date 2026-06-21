@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Father's Day, Dad!</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #d69e2e;
+            --bg: #f7fafc;
+            --text: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 60px;
+            overflow-x: hidden;
+        }
+
+        /* Hero Header Section */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Interactive Music Player (Optional but awesome) */
+        .audio-player {
+            background: white;
+            max-width: 90%;
+            margin: -20px auto 20px auto;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .audio-player p {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            padding: 15px;
+            max-width: 500px; /* Perfect for mobile viewing */
+            margin: 0 auto;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+            color: var(--primary);
+            font-size: 1.4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin: 8px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Interactive Letter Section */
+        .letter-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .letter-card p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* Interactive Memory Book (Tap to Flip/Reveal) */
+        .memory-book {
+            position: relative;
+            height: 380px;
+            margin-top: 1rem;
+            perspective: 1000px;
+        }
+
+        .memory-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .memory-img-wrapper {
+            width: 100%;
+            height: 70%;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #e2e8f0;
+            position: relative;
+        }
+
+        .memory-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .memory-caption {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .memory-caption h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .memory-caption p {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        /* Swipe Navigation Buttons */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Interactive Reasons Grid */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .reason-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        /* JS toggle class for tapping reasons */
+        .reason-box.revealed {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .reason-box .icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .reason-box p {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.85rem;
+            color: #a0aec0;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Happy Father's Day, Dad! ❤️</h1>
+        <p>My superhero without a cape.</p>
+    </header>
+
+    <div class="audio-player">
+        <p>🎵 Play his favorite song background loop:</p>
+        <audio controls style="height: 30px; width: 140px;">
+            <source src="bg-music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <div class="container">
+
+        <h2 class="section-title">Our Memory Book</h2>
+        <p style="text-align: center; font-size: 0.85rem; color: #718096; margin-bottom: 10px;">
+            (Tap the cards or use buttons to flip through)
+        </p>
+        
+        <div class="memory-book" id="book">
+            
+            <div class="memory-card" style="z-index: 3;">
+                <div class="memory-img-wrapper">
+                    <img src="pic1.jpeg" alt="Memory with Dad 1" onerror="this.src='https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=500'">
+                </div>
+                <div class="memory-caption">
+                    <h4>The Beginning</h4>
+                    <p>Where it all started. Thank you for always holding my hand.</p>
+                </div>
+            </div>
+
+            <div class="memory-card" style="z-index: 2;">
+                <div class="memory-img-wrapper">
+                    <img src="pic2.jpeg" alt="Memory with Dad 2" onerror="this.src='https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=500'">
+                </div>
+                <div class="memory-caption">
+                    <h4>Lessons & Laughter</h4>
+                    <p>Teaching me how to face challenges with a big smile.</p>
+                </div>
+            </div>
+
+            <div class="memory-card" style="z-index: 1;">
+                <div class="memory-img-wrapper">
+                    <img src="pic3.jpeg" alt="Memory with Dad 3" onerror="this.src='https://images.unsplash.com/photo-1507245921392-e90fa558a40b?w=500'">
+                </div>
+                <div class="memory-caption">
+                    <h4>Proudest Moments</h4>
+                    <p>Growing up under your guidance is my biggest blessing.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="prevBtn">⏮️ Previous</button>
+            <button class="btn" id="nextBtn">Next Memory ⏭️</button>
+        </div>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 2rem 0;">
+
+        <h2 class="section-title">A Message For You</h2>
+        <div class="letter-card">
+            <p><strong>Dear Dad,</strong></p>
+            <p>On this Father's Day, I wanted to build something unique just for you to look back at our journey. Words will always fall short of thanking you for the endless sacrifices, late-night advice, and unwavering support you give me every day.</p>
+            <p>Thank you for being my anchor, my teacher, and my biggest cheerleader. I love you to the moon and back!</p>
+            <p style="text-align: right; font-weight: bold; color: var(--primary);">— Your Child ❤️</p>
+        </div>
+
+        <h2 class="section-title">Tap to Reveal</h2>
+        <p style="text-align: center; font-size: 0.85rem; color: #718096; margin-bottom: 10px;">What makes you the absolute best:</p>
+        
+        <div class="reasons-grid">
+            <div class="reason-box" onclick="revealReason(this)">
+                <div class="icon">💼</div>
+                <p>Hardest Worker</p>
+            </div>
+            <div class="reason-box" onclick="revealReason(this)">
+                <div class="icon">🧠</div>
+                <p>Best Advice</p>
+            </div>
+            <div class="reason-box" onclick="revealReason(this)">
+                <div class="icon">🤣</div>
+                <p>Funniest Jokes</p>
+            </div>
+            <div class="reason-box" onclick="revealReason(this)">
+                <div class="icon">🛡️</div>
+                <p>My Protector</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Made with ❤️ just for Dad</p>
+    </footer>
+
+    <script>
+        // Memory Card Flipping Logic
+        const cards = document.querySelectorAll('.memory-card');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        let currentIndex = 0;
+
+        function updateCards() {
+            cards.forEach((card, index) => {
+                if (index < currentIndex) {
+                    // Sent to back/hidden smoothly
+                    card.style.transform = 'translateX(-120%) rotate(-10deg)';
+                    card.style.opacity = '0';
+                } else if (index === currentIndex) {
+                    // Active Card
+                    card.style.transform = 'translateX(0) scale(1) rotate(0deg)';
+                    card.style.opacity = '1';
+                    card.style.zIndex = cards.length - index;
+                } else {
+                    // Stacked Behind Card
+                    card.style.transform = `translateX(0) scale(${1 - (index - currentIndex) * 0.05}) translateY(${(index - currentIndex) * 10}px)`;
+                    card.style.opacity = '0.9';
+                    card.style.zIndex = cards.length - index;
+                }
+            });
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                updateCards();
+            } else {
+                // Loop back to start
+                currentIndex = 0;
+                updateCards();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCards();
+            }
+        });
+
+        // Tap directly on card to go to next
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                nextBtn.click();
+            });
+        });
+
+        // Initialize Book View
+        updateCards();
+
+        // Tap to change color grid logic
+        function revealReason(element) {
+            element.classList.toggle('revealed');
+        }
+    </script>
+</body>
+</html>
